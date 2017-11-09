@@ -1,0 +1,1 @@
+This is a time sheet that I made based on a Microsoft Excel version in order to incorporate digital signatures. It required custom JavaScript to properly calculate the times.
