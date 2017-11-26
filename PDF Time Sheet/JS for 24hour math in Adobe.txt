@@ -1,0 +1,65 @@
+function checkNull(field) //reads a time field and returns a float (0.0 if the field is blank)
+{
+    if (this.getField(field).value != "")
+        var x = timeStringToFloat(this.getField(field).value);
+    else
+        var x = 0.0;
+    return x;
+}
+
+function floatToTimeString(time) //converts a float to a time string
+{
+	var fraction = time % 1;
+	var hours = time - fraction;
+	var minutes = fraction * 60;
+	if (minutes == 0)
+		minutes = "00";
+	return (hours + ":" + minutes);
+}
+
+function timeStringToFloat(time) //converts a time string to a float
+{
+	var hoursMinutes = time.split(/[.:]/);
+	var hours = parseInt(hoursMinutes[0], 10);
+	var minutes = hoursMinutes[1] ? parseInt(hoursMinutes[1], 10) : 0;
+	return hours + minutes / 60;
+}
+
+//Example of the calculation script in the weekly subtotal form fields for each day
+var s1 = checkNull("Tue 1"), s2 = checkNull("Tue 2"), s3 = checkNull("Tue 3"), s4 = checkNull("Tue 4"), s5 = checkNull("Tue 5"), s6 = checkNull("Tue 6"), s7 = checkNull("Tue 7"), s8 = checkNull("Tue 8"), s9 = checkNull("Tue 9"), s10 = checkNull("Tue 10");
+
+event.value = floatToTimeString(s1+s2+s3+s4+s5+s6+s7+s8+s9+s10); //sum the values of the fields
+
+
+//Example of the calculation script in the weekly total form fields
+var s1 = timeStringToFloat(this.getField("SunSub1").value), s2 = timeStringToFloat(this.getField("MonSub1").value), s3 = timeStringToFloat(this.getField("TueSub1").value), s4 = timeStringToFloat(this.getField("WedSub1").value), s5 = timeStringToFloat(this.getField("ThuSub1").value), s6 = timeStringToFloat(this.getField("FriSub1").value), s7 = timeStringToFloat(this.getField("SatSub1").value);
+
+event.value = floatToTimeString(s1+s2+s3+s4+s5+s6+s7); //sum the values of the fields
+
+//Example of the calculation script in the overtime rows
+if (this.getField("FROMRow1").value != "" && this.getField("TORow1").value != "")
+{
+	var from = timeStringToFloat(this.getField("FROMRow1").value), to = timeStringToFloat(this.getField("TORow1").value);
+
+	if (to == 0)
+	   var to = 24;
+
+	event.value = floatToTimeString(to-from);
+}
+else
+    event.value = "";
+	
+//Example of the calculation script for total overtime
+var myArray = ["Total HoursRow1", "Total HoursRow2", "Total HoursRow3", "Total HoursRow4", "Total HoursRow5", "Total HoursRow6", "Total HoursRow7", "Total HoursRow8", "Total HoursRow9", "Total HoursRow10", "Total HoursRow11", "Total HoursRow12", "Total HoursRow13", "Total HoursRow14", "Total HoursRow15", "Total HoursRow16", "Total HoursRow17", "Total HoursRow18", "Total HoursRow19", "Total HoursRow20", "Total HoursRow21", "Total HoursRow22", "Total HoursRow23", "Total HoursRow24", "Total HoursRow25", "Total HoursRow26", "Total HoursRow27", "Total HoursRow28", "Total HoursRow29", "Total HoursRow30", "Total HoursRow31", "Total HoursRow32", "Total HoursRow33", "Total HoursRow34", "Total HoursRow35", "Total HoursRow36", "Total HoursRow37", "Total HoursRow38", "Total HoursRow39", "Total HoursRow40"];
+
+var total = 0;
+
+for (var i=0; i<myArray.length; i++)
+{
+	total += checkNull(myArray[i]);
+}
+
+if (total == 0)
+    event.value = "";
+else
+    event.value = floatToTimeString(total);
