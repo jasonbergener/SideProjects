@@ -14,7 +14,7 @@ namespace UnitTests
             string expected = "1-3, 6, 8, 10-12, 15, 16, 18";
 
             // act
-            string actual = Whiteboard.RangeExtractor.RangeExtract(test);
+            string actual = SideProjects.RangeExtractor.RangeExtract(test);
 
             // assert
             Assert.AreEqual(expected, actual);
@@ -28,7 +28,7 @@ namespace UnitTests
             string expected = "1-3, 6, 8, 10-12, 15-18";
 
             // act
-            string actual = Whiteboard.RangeExtractor.RangeExtract(test);
+            string actual = SideProjects.RangeExtractor.RangeExtract(test);
 
             // assert
             Assert.AreEqual(expected, actual);
@@ -42,7 +42,7 @@ namespace UnitTests
             string expected = "1-3, 6, 8, 10-12, 15, 17, 18";
 
             // act
-            string actual = Whiteboard.RangeExtractor.RangeExtract(test);
+            string actual = SideProjects.RangeExtractor.RangeExtract(test);
 
             // assert
             Assert.AreEqual(expected, actual);
